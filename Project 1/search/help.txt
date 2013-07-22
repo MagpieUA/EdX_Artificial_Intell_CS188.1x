@@ -1,0 +1,8 @@
+What follows is a pretty detailed explanation of what I've done, so (a) if you're a student and want to see no spoilers at all, leave now the way you came :), and (b) if you're a TA and think some stuff should be left out, please edit this post accordingly.
+I decided to view the problem as an MST finding problem + estimating the best cost of entry into the tree from Pacman's position.
+There are several well-known algorithms for solving MSTs, namely, Kruskal's, Prime's and Boruvka's. I picked the latter but I think any of these would do. Just implementing an adaptation of the pseudocode in the Wikipedia entry (I keep only one component, i.e. there is a set of already interconnected vertices (food locations) and a set of those not yet connected to the first one seems to do the trick, although further optimization might be achieved by removing this constraint.
+Of course, you shouldn't keep the structures needed for building the tree: you are only interested in the cost, after all!
+Put problem.heuristicInfo caching to a good use. Recalculating costs for every heuristic call is definitely a very bad idea.
+Declare the variables that you use in your MST solving algo outside the loop. This will help you shave off about 10% of the time required, since Python will no longer keep reallocating memory for these variables multiple times.
+Estimate distances with the mazeDistance heuristic, not manhattanDistance.
+Store edges in a PriorityQueue. Keep in mind that you'll have to store edge costs in the queue item as well as the priority variable, otherwise you won't be able to use them!
